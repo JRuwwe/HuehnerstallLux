@@ -1,4 +1,4 @@
-# Imports können nur am Raspberry funktionieren, Fehlermeldungen am PC normal
+# Imports kÃ¶nnen nur am Raspberry funktionieren, Fehlermeldungen am PC normal
 import datetime
 
 import RPi.GPIO as GPIO
@@ -44,8 +44,6 @@ klappenzustand = False
 tageszeit_anfang = time.time()
 tageszeit_ende = time.time()
 
-# Definiere log TXT
-luxwerte = open("lux_werte.txt", "a")
 
 
 def alltags_sequenz():
@@ -55,11 +53,21 @@ def alltags_sequenz():
 
 
 def log_lux():
-    luxwerte.write("Uhrzeit:" + datetime.datetime.now().strftime("%H:%M") + "\n" +
-                   "Luxwert:" + sensor.lux + "\n" +
-                   "Infrarot:" + sensor.infrared + "\n" +
-                   "raw_luminosity" + sensor.raw_luminosity + "\n" +
-                   "-----------------------------------------------------------------")
+    with open("lux_werte_nacht.txt", "a") as luxwerte:
+        luxwerte.write(str(sensor.lux) + " ")
+
+    with open("uhrzeit_nacht.txt", "a") as uhrzeit:
+        uhrzeit.write(datetime.datetime.now().strftime("%H:%M:%S") + " ")
+
+    with open("infrared_nacht.txt", "a") as infrared:
+        infrared.write(str(sensor.infrared) + " " )
+
+    with open("luminosity_nacht.txt", "a") as luminosity:
+        luminosity.write(str(sensor.raw_luminosity) + " " )
+
+
+
+
 
 
 def update_klappenzustand():
@@ -91,16 +99,16 @@ def update_rote_lampen_zustand():
 
 
 def daemmerig_oder_heller():
-    # TODO Falls es dämmerig oder heller ist → return True, sonst return False
+    # TODO Falls es dÃ¤mmerig oder heller ist â†’ return True, sonst return False
     return True
 
 
 def dunkel_oder_dunkler():
-    # TODO Falls es dunkel oder dunkler ist → return True, sonst return False
+    # TODO Falls es dunkel oder dunkler ist â†’ return True, sonst return False
     return True
 
 
-# ändert die Variable klappenzustand, sowie den tatsächlichen Zustand der Klappe via der Raspberry pins
+# Ã¤ndert die Variable klappenzustand, sowie den tatsÃ¤chlichen Zustand der Klappe via der Raspberry pins
 def setze_klappe(p_klappenzustand):
     if p_klappenzustand:
         GPIO.output(klappe, 0)  # 0 = an, also Klappe auf
@@ -123,4 +131,4 @@ def setze_tageszeit_ende():
 
 while True:
     log_lux()
-    time.sleep(300)
+    time.sleep(10)
