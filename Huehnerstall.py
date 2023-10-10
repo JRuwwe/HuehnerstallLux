@@ -3,6 +3,7 @@ import RPi.GPIO as GPIO
 import board
 import adafruit_tsl2591
 import busio
+import time
 
 # S1 ist die Steckdose am naechsten zu den Verteilerdosen
 S1 = 17  # IN1 am Relais
@@ -85,7 +86,14 @@ def setze_klappe(p_klappenzustand):
 
 
 def setze_tagesanfangszeit():
-    # TODO aktuellen Zeitpunkt als Variable tagesanfangszeit speichern
+    tagesanfangszeit = time.time()
+    return tagesanfangszeit
+
+def setze_tagesendzeit()
+    tagesendzeit = time.time()
+    return tagesendzeit
+
+
 
     # hilfreicher Code:
 
