@@ -3,6 +3,7 @@ import RPi.GPIO as GPIO
 import board
 import adafruit_tsl2591
 import busio
+import time
 
 # S1 ist die Steckdose am naechsten zu den Verteilerdosen
 S1 = 17  # IN1 am Relais
@@ -37,8 +38,8 @@ lampe = S2
 
 # Deklaration von Variablen:
 klappenzustand = False
-
-
+tageszeit_anfang = time.time()
+tageszeit_ende = time.time()
 def alltags_sequenz():
     update_lampen_zustand()
     update_rote_lampen_zustand()
@@ -49,7 +50,7 @@ def update_klappenzustand():
     if daemmerig_oder_heller():
         if klappenzustand:
             return
-        setze_tagesanfangszeit()
+        setze_tageszeit_anfang()
         setze_klappe(True)
         return
 
@@ -59,7 +60,7 @@ def update_klappenzustand():
     if not klappenzustand:
         return
 
-    setze_tagesendzeit()
+    setze_tageszeit_ende()
     setze_klappe(False)
 
 
@@ -94,31 +95,13 @@ def setze_klappe(p_klappenzustand):
     klappenzustand = p_klappenzustand
 
 
-def setze_tagesanfangszeit():
-    # TODO aktuellen Zeitpunkt als Variable tagesanfangszeit speichern
+def setze_tageszeit_anfang():
+    global tageszeit_anfang
+    tageszeit_anfang = time.time()
 
-    # hilfreicher Code:
-
-    # import datetime
-    #
-    # # direkt ein datetime.time-Objekt erhalten
-    # zeit_nur_hms = datetime.datetime.now().time()
-    #
-    # # Ausgabe der neuen Variable
-    # print(zeit_nur_hms)
-    return
+def setze_tageszeit_ende()
+    global tageszeit_ende
+    tageszeit_ende = time.time()
 
 
-def setze_tagesendzeit():
-    # TODO aktuellen Zeitpunkt als Variable tagesendzeit speichern
 
-    # hilfreicher Code:
-
-    # import datetime
-    #
-    # # direkt ein datetime.time-Objekt erhalten
-    # zeit_nur_hms = datetime.datetime.now().time()
-    #
-    # # Ausgabe der neuen Variable
-    # print(zeit_nur_hms)
-    return
