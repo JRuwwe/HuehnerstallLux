@@ -31,6 +31,11 @@ i2c = busio.I2C(board.SCL, board.SDA)
 # Erstellen Sie ein TSL2591-Objekt.
 sensor = adafruit_tsl2591.TSL2591(i2c)
 
+# Definiere welche GPIO Pins was steuern:
+klappe = S1
+lampe = S2
+
+# Deklaration von Variablen:
 klappenzustand = False
 
 
@@ -78,8 +83,13 @@ def dunkel_oder_dunkler():
     return True
 
 
+# ändert die Variable klappenzustand, sowie den tatsächlichen Zustand der Klappe via der Raspberry pins
 def setze_klappe(p_klappenzustand):
-    # TODO GPIO Pins so setzen, dass Klappe geschlossen wird
+    if p_klappenzustand:
+        GPIO.output(klappe, 0)  # 0 = an, also Klappe auf
+    else:
+        GPIO.output(klappe, 1)  # 1 = aus, also Klappe zu
+
     global klappenzustand
     klappenzustand = p_klappenzustand
 
