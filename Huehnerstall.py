@@ -25,7 +25,6 @@ GPIO.output(S2, 1)  # Aus
 GPIO.output(S3, 0)  # Aus
 GPIO.output(S4, 1)  # An
 
-
 # Erstellen Sie ein I2C-Bus-Objekt.
 i2c = busio.I2C(board.SCL, board.SDA)
 
@@ -38,7 +37,10 @@ klappenzustand = False
 def alltags_sequenz():
     update_lampen_zustand()
     update_rote_lampen_zustand()
+    update_klappenzustand()
 
+
+def update_klappenzustand():
     if daemmerig_oder_heller():
         if klappenzustand:
             return
@@ -52,7 +54,7 @@ def alltags_sequenz():
     if not klappenzustand:
         return
 
-    setze_tagesanfangszeit()
+    setze_tagesendzeit()
     setze_klappe(False)
 
 
