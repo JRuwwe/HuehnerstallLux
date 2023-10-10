@@ -33,8 +33,8 @@ i2c = busio.I2C(board.SCL, board.SDA)
 sensor = adafruit_tsl2591.TSL2591(i2c)
 
 klappenzustand = False
-
-
+tageszeit_anfang = time.time()
+tageszeit_ende = time.time()
 def alltags_sequenz():
     update_lampen_zustand()
     update_rote_lampen_zustand()
@@ -45,7 +45,7 @@ def update_klappenzustand():
     if daemmerig_oder_heller():
         if klappenzustand:
             return
-        setze_tagesanfangszeit()
+        setze_tageszeit_anfang()
         setze_klappe(True)
         return
 
@@ -55,7 +55,7 @@ def update_klappenzustand():
     if not klappenzustand:
         return
 
-    setze_tagesendzeit()
+    setze_tageszeit_ende()
     setze_klappe(False)
 
 
@@ -85,38 +85,13 @@ def setze_klappe(p_klappenzustand):
     klappenzustand = p_klappenzustand
 
 
-def setze_tagesanfangszeit():
-    tagesanfangszeit = time.time()
-    return tagesanfangszeit
+def setze_tageszeit_anfang():
+    global tageszeit_anfang
+    tageszeit_anfang = time.time()
 
-def setze_tagesendzeit()
-    tagesendzeit = time.time()
-    return tagesendzeit
-
-
-
-    # hilfreicher Code:
-
-    # import datetime
-    #
-    # # direkt ein datetime.time-Objekt erhalten
-    # zeit_nur_hms = datetime.datetime.now().time()
-    #
-    # # Ausgabe der neuen Variable
-    # print(zeit_nur_hms)
-    return
+def setze_tageszeit_ende()
+    global tageszeit_ende
+    tageszeit_ende = time.time()
 
 
-def setze_tagesendzeit():
-    # TODO aktuellen Zeitpunkt als Variable tagesendzeit speichern
 
-    # hilfreicher Code:
-
-    # import datetime
-    #
-    # # direkt ein datetime.time-Objekt erhalten
-    # zeit_nur_hms = datetime.datetime.now().time()
-    #
-    # # Ausgabe der neuen Variable
-    # print(zeit_nur_hms)
-    return
