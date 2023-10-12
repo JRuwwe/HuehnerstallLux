@@ -40,10 +40,17 @@ lampe = S2
 klappenzustand = False
 tageszeit_anfang = time.time()
 tageszeit_ende = time.time()
+
+
 def alltags_sequenz():
     update_lampen_zustand()
     update_rote_lampen_zustand()
     update_klappenzustand()
+
+
+def log_lux():
+    luxwerte = open("lux_werte", "a")
+    luxwerte.write()
 
 
 def update_klappenzustand():
@@ -99,9 +106,7 @@ def setze_tageszeit_anfang():
     global tageszeit_anfang
     tageszeit_anfang = time.time()
 
-def setze_tageszeit_ende()
+
+def setze_tageszeit_ende():
     global tageszeit_ende
     tageszeit_ende = time.time()
-
-
-
