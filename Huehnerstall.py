@@ -52,7 +52,7 @@ def alltags_sequenz():
 
 
 def log_lux():
-    luxwerte = open("lux_werte", "a")
+    luxwerte = open("lux_werte.txt", "a")
     luxwerte.write("Uhrzeit:", datetime.datetime.time().now(), "\n"
                    "Luxwert:", sensor.lux, "\n"
                    "Infrarot:", sensor.infrared, "\n"
