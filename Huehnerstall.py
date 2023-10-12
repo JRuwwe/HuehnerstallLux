@@ -1,9 +1,12 @@
 # Imports können nur am Raspberry funktionieren, Fehlermeldungen am PC normal
+import datetime
+
 import RPi.GPIO as GPIO
 import board
 import adafruit_tsl2591
 import busio
 import time
+
 
 # S1 ist die Steckdose am naechsten zu den Verteilerdosen
 S1 = 17  # IN1 am Relais
@@ -50,7 +53,11 @@ def alltags_sequenz():
 
 def log_lux():
     luxwerte = open("lux_werte", "a")
-    luxwerte.write()
+    luxwerte.write("Uhrzeit:", datetime.datetime.time().now(), "\n"
+                   "Luxwert:", sensor.lux, "\n"
+                   "Infrarot:", sensor.infrared, "\n"
+                   "raw_luminosity", sensor.raw_luminosity, "\n"
+                   "-----------------------------------------------------------------")
 
 
 def update_klappenzustand():
@@ -110,3 +117,8 @@ def setze_tageszeit_anfang():
 def setze_tageszeit_ende():
     global tageszeit_ende
     tageszeit_ende = time.time()
+
+
+while True:
+    log_lux()
+    time.sleep(300)
