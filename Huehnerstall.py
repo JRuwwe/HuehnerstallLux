@@ -44,6 +44,9 @@ klappenzustand = False
 tageszeit_anfang = time.time()
 tageszeit_ende = time.time()
 
+# Definiere log TXT
+luxwerte = open("lux_werte.txt", "a")
+
 
 def alltags_sequenz():
     update_lampen_zustand()
@@ -52,11 +55,10 @@ def alltags_sequenz():
 
 
 def log_lux():
-    luxwerte = open("lux_werte.txt", "a")
-    luxwerte.write("Uhrzeit:", datetime.datetime.now(), "\n",
-                   "Luxwert:", sensor.lux, "\n",
-                   "Infrarot:", sensor.infrared, "\n",
-                   "raw_luminosity", sensor.raw_luminosity, "\n",
+    luxwerte.write("Uhrzeit:" + datetime.datetime.now().strftime("%H:%M") + "\n" +
+                   "Luxwert:" + sensor.lux + "\n" +
+                   "Infrarot:" + sensor.infrared + "\n" +
+                   "raw_luminosity" + sensor.raw_luminosity + "\n" +
                    "-----------------------------------------------------------------")
 
 
